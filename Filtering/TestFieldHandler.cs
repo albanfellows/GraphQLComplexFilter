@@ -21,12 +21,33 @@ namespace GraphQLComplexFilter.Filtering
     public class TestFieldHandler : QueryableDefaultFieldHandler
     {
         private IRequestExecutorResolver executorResolver;
+        private string idName;
 
         public override bool CanHandle(ITypeCompletionContext context, IFilterInputTypeDefinition typeDefinition, IFilterFieldDefinition fieldDefinition)
         {
             if (fieldDefinition.Member?.Name == "Second")
             {
+                context.ContextData[fieldDefinition.Member.Name] = typeDefinition.EntityType.Name;
                 executorResolver = (IRequestExecutorResolver)context.Services.GetService(typeof(IRequestExecutorResolver));
+                var attribute = fieldDefinition.Member.GetCustomAttribute<ForeignKeyAttribute>();
+                idName = attribute?.Name;
+                if (idName == null)
+                {
+                    // Not on navigation property look back the other way
+                    var idField = typeDefinition.EntityType.GetProperties(BindingFlags.Instance | BindingFlags.Public).FirstOrDefault(f =>
+                      {
+                          attribute = f.GetCustomAttribute<ForeignKeyAttribute>();
+                          if (attribute == null)
+                              return false;
+                          if (attribute.Name == fieldDefinition.Member.Name)
+                              return true;
+
+                          return false;
+                      }
+                    );
+                    idName = idField?.Name;
+                }
+
                 return true;
             }
             return false;
@@ -43,32 +64,7 @@ namespace GraphQLComplexFilter.Filtering
         {
             // This is the property that represents the object
             Expression property = context.GetInstance();
-            var attribute = field.Member.GetCustomAttribute<ForeignKeyAttribute>();
-            string idName = null;
-            if (attribute==null)
-            {
-                // Not on navigation property look back the other way
-                var idField = field.DeclaringType.Fields.FirstOrDefault(f =>
-                {
-                    var f2 = f as FilterField;
-                    if (f2 != null)
-                    {
-                        attribute = f2.Member.GetCustomAttribute<ForeignKeyAttribute>();
-                        if (attribute == null)
-                            return false;
-                        if (attribute.Name == field.Member.Name)
-                            return true;
-                    }
-                    return false;
-                }
-                );
-                if (idField != null)
-                    idName = ((FilterField)idField).Member.Name;
-            }
-            else
-            {
-                idName = attribute.Name;
-            }
+
 
             if (string.IsNullOrEmpty(idName))
             {
