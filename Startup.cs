@@ -1,6 +1,8 @@
+using GraphQLComplexFilter.Filtering;
 using GraphQLComplexFilter.Module1;
 using GraphQLComplexFilter.Module2;
 using GreenDonut;
+using HotChocolate.Data.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,20 +22,22 @@ namespace GraphQLComplexFilter
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRouting();
+
+            services.AddPooledDbContextFactory<FirstDbContext>(options => options.UseSqlite("Data Source=filtertest.db"));
+            services.AddPooledDbContextFactory<SecondDbContext>(options => options.UseSqlite("Data Source=filtertest.db"));
+
             services.AddGraphQLServer()
+                .AddProjections()
+                .AddFiltering<TestFilterConvention>()
+                .AddSorting()
                 .AddQueryType<Query>()
                 .AddTypeExtension<FirstQuery>()
                 .AddTypeExtension<SecondQuery>()
                 .AddType<FirstType>()
                 .AddType<SecondType>()
-                .AddProjections()
-                .AddFiltering()
-                .AddSorting()
                 .AddDataLoader<IDataLoader<int, FirstClass>, FirstDataLoader>()
                 .AddDataLoader<IDataLoader<int, SecondClass>, SecondDataLoader>();
-
-            services.AddPooledDbContextFactory<FirstDbContext>(options => options.UseSqlite("Data Source=filtertest.db"));
-            services.AddPooledDbContextFactory<SecondDbContext>(options => options.UseSqlite("Data Source=filtertest.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
