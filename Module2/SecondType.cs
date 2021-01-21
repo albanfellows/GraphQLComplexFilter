@@ -16,14 +16,13 @@ namespace GraphQLComplexFilter.Module2
             descriptor.Field(f => f.FirstId)
                 .IsProjected();
             descriptor.Field(f => f.First)
-                .Type<FirstType>()
                 .Resolve(async (resolver, cancellationToken) =>
                 {
                     var second = resolver.Parent<SecondClass>();
                     if (second.FirstId == null)
                         return null;
-                    var dataloader = resolver.DataLoader<IDataLoader<int, FirstClass>>();
-                    return await dataloader.LoadAsync(second.FirstId, cancellationToken);
+                    var dataloader = resolver.DataLoader<IDataLoader<int, IFirstInterface>>();
+                    return await dataloader.LoadAsync(second.FirstId.Value, cancellationToken);
                 });
         }
     }

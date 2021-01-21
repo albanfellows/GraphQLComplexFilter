@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GraphQLComplexFilter.Module1
 {
-    public class FirstDataLoader : BatchDataLoader<int, FirstClass>
+    public class FirstDataLoader : BatchDataLoader<int, IFirstInterface>
     {
         private readonly IDbContextFactory<FirstDbContext> _dbContextFactory;
 
@@ -19,13 +19,14 @@ namespace GraphQLComplexFilter.Module1
                 throw new ArgumentNullException(nameof(dbContextFactory));
         }
 
-        protected override async Task<IReadOnlyDictionary<int, FirstClass>> LoadBatchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyDictionary<int, IFirstInterface>> LoadBatchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
         {
             await using FirstDbContext dbContext =
                 _dbContextFactory.CreateDbContext();
 
             return await dbContext.Firsts
                 .Where(s => keys.Contains(s.Id))
+                .Cast<IFirstInterface>()
                 .ToDictionaryAsync(t => t.Id, cancellationToken);
         }
     }

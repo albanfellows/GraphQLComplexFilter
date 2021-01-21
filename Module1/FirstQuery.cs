@@ -12,7 +12,7 @@ namespace GraphQLComplexFilter.Module1
     public class FirstQuery
     {
         [UseDbContext(typeof(FirstDbContext))]
-        [UsePaging(DefaultPageSize = 10, IncludeTotalCount = true), UseProjection, UseFiltering, UseSorting]
+        [UsePaging(DefaultPageSize = 10, IncludeTotalCount = true), /*UseProjection,*/ UseFiltering, UseSorting]
         public IQueryable<FirstClass> GetFirsts([ScopedService] FirstDbContext context) => context.Firsts;
     }
 }

@@ -18,7 +18,7 @@ namespace GraphQLComplexFilter.Module1
         public DateTime? FieldFour { get; set; }
 
         [ForeignKey(nameof(Second))]public int? SecondId { get; set; }
-        [NotMapped]public SecondClass? Second { get; set; }
+        [NotMapped]public ISecondInterface? Second { get; set; }
 
     }
 }

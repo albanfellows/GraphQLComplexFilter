@@ -1,4 +1,6 @@
-﻿using HotChocolate.Data;
+﻿using GraphQLComplexFilter.Module1;
+using GraphQLComplexFilter.Module2;
+using HotChocolate.Data;
 using HotChocolate.Data.Filters;
 using HotChocolate.Data.Filters.Expressions;
 using System;
@@ -15,6 +17,8 @@ namespace GraphQLComplexFilter.Filtering
             descriptor.AddDefaults();
             descriptor.AddProviderExtension(new QueryableFilterProviderExtension(x =>
                 x.AddFieldHandler<TestFieldHandler>()));
+            descriptor.BindRuntimeType<ISecondInterface, FilterInputType<SecondClass>>();
+            descriptor.BindRuntimeType<IFirstInterface, FilterInputType<FirstClass>>();
         }
     }
 }

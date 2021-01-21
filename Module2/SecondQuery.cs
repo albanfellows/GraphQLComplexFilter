@@ -12,7 +12,7 @@ namespace GraphQLComplexFilter.Module2
     public class SecondQuery
     {
         [UseDbContext(typeof(SecondDbContext))]
-        [UsePaging(DefaultPageSize = 10, IncludeTotalCount = true), UseProjection, UseFiltering, UseSorting]
+        [UsePaging(DefaultPageSize = 10, IncludeTotalCount = true), /*UseProjection,*/ UseFiltering, UseSorting]
         public IQueryable<SecondClass> GetSeconds([ScopedService] SecondDbContext context) => context.Seconds;
     }
 }

@@ -31,13 +31,13 @@ namespace GraphQLComplexFilter
                 .AddProjections()
                 .AddFiltering<TestFilterConvention>()
                 .AddSorting()
+                .AddType<FirstType>()
+                .AddType<SecondType>()
                 .AddQueryType<Query>()
                 .AddTypeExtension<FirstQuery>()
                 .AddTypeExtension<SecondQuery>()
-                .AddType<FirstType>()
-                .AddType<SecondType>()
-                .AddDataLoader<IDataLoader<int, FirstClass>, FirstDataLoader>()
-                .AddDataLoader<IDataLoader<int, SecondClass>, SecondDataLoader>();
+                .AddDataLoader<IDataLoader<int, IFirstInterface>, FirstDataLoader>()
+                .AddDataLoader<IDataLoader<int, ISecondInterface>, SecondDataLoader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
