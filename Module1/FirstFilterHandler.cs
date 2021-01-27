@@ -1,5 +1,4 @@
-﻿using GraphQLComplexFilter.Module1;
-using HotChocolate;
+﻿using HotChocolate;
 using HotChocolate.Configuration;
 using HotChocolate.Data.Filters;
 using HotChocolate.Data.Filters.Expressions;
@@ -16,16 +15,17 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace GraphQLComplexFilter.Filtering
+namespace GraphQLComplexFilter.Module1
 {
-    public class TestFieldHandler : QueryableDefaultFieldHandler
+    public class FirstFilterHandler : QueryableDefaultFieldHandler
     {
         private IRequestExecutorResolver executorResolver;
         private string idName;
 
         public override bool CanHandle(ITypeCompletionContext context, IFilterInputTypeDefinition typeDefinition, IFilterFieldDefinition fieldDefinition)
         {
-            if (fieldDefinition.Member?.Name == "Second")
+            var property = fieldDefinition.Member as PropertyInfo;
+            if (property?.PropertyType == typeof(IFirstInterface) && typeDefinition.EntityType.Namespace != typeof(IFirstInterface).Namespace)
             {
                 context.ContextData[fieldDefinition.Member.Name] = typeDefinition.EntityType.Name;
                 executorResolver = (IRequestExecutorResolver)context.Services.GetService(typeof(IRequestExecutorResolver));
@@ -35,15 +35,15 @@ namespace GraphQLComplexFilter.Filtering
                 {
                     // Not on navigation property look back the other way
                     var idField = typeDefinition.EntityType.GetProperties(BindingFlags.Instance | BindingFlags.Public).FirstOrDefault(f =>
-                      {
-                          attribute = f.GetCustomAttribute<ForeignKeyAttribute>();
-                          if (attribute == null)
-                              return false;
-                          if (attribute.Name == fieldDefinition.Member.Name)
-                              return true;
+                    {
+                        attribute = f.GetCustomAttribute<ForeignKeyAttribute>();
+                        if (attribute == null)
+                            return false;
+                        if (attribute.Name == fieldDefinition.Member.Name)
+                            return true;
 
-                          return false;
-                      }
+                        return false;
+                    }
                     );
                     idName = idField?.Name;
                 }
@@ -54,13 +54,6 @@ namespace GraphQLComplexFilter.Filtering
         }
 
         public override bool TryHandleEnter(QueryableFilterContext context, IFilterField field, ObjectFieldNode node, [NotNullWhen(true)] out ISyntaxVisitorAction action)
-        {
-            action = SyntaxVisitor.SkipAndLeave;
-            return true;
-            //return base.TryHandleEnter(context, field, node, out action);
-        }
-
-        public override bool TryHandleLeave(QueryableFilterContext context, IFilterField field, ObjectFieldNode node, [NotNullWhen(true)] out ISyntaxVisitorAction action)
         {
             // This is the property that represents the object
             Expression property = context.GetInstance();
@@ -74,14 +67,14 @@ namespace GraphQLComplexFilter.Filtering
             }
 
             var filter = node.Value.ToString();
-            var query = QueryRequestBuilder.Create($"{{ seconds(where: {filter}) {{ nodes {{id}} }} }}");
+            var query = QueryRequestBuilder.Create($"{{ firsts(where: {filter}) {{ nodes {{id}} }} }}");
 
             var proxy = new RequestExecutorProxy(executorResolver, Schema.DefaultName);
             var result = proxy.ExecuteAsync(query).GetAwaiter().GetResult();
             proxy.Dispose();
 
             var data = result as QueryResult;
-            var queryData = data.Data["seconds"] as ResultMap;
+            var queryData = data.Data["firsts"] as ResultMap;
             var nodes = queryData.GetValueOrDefault("nodes") as ResultMapList;
 
             var linkProperty = Expression.Property(property, idName);
@@ -90,7 +83,7 @@ namespace GraphQLComplexFilter.Filtering
 
             context.GetLevel().Enqueue(newExpression);
 
-            action = SyntaxVisitor.Continue;
+            action = SyntaxVisitor.Skip;
             return true;
         }
     }

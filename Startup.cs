@@ -1,4 +1,3 @@
-using GraphQLComplexFilter.Filtering;
 using GraphQLComplexFilter.Module1;
 using GraphQLComplexFilter.Module2;
 using GreenDonut;
@@ -29,7 +28,8 @@ namespace GraphQLComplexFilter
 
             services.AddGraphQLServer()
                 .AddProjections()
-                .AddFiltering<TestFilterConvention>()
+                .AddFiltering<FirstFilterConvention>()
+                .AddFiltering<SecondFilterConvention>()
                 .AddSorting()
                 .AddType<FirstType>()
                 .AddType<SecondType>()
