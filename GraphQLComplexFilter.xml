@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>GraphQLComplexFilter</name>
+        <name>Server</name>
     </assembly>
     <members>
-        <member name="F:GraphQLComplexFilter.MyEnum.One">
+        <member name="F:GraphQLComplexFilter.Server.MyEnum.One">
             <summary>
             This is One
             </summary>
         </member>
-        <member name="F:GraphQLComplexFilter.MyEnum.Two">
+        <member name="F:GraphQLComplexFilter.Server.MyEnum.Two">
             <summary>
             This is two
             </summary>
         </member>
-        <member name="F:GraphQLComplexFilter.MyEnum.Three">
+        <member name="F:GraphQLComplexFilter.Server.MyEnum.Three">
             <summary>
             And number three
             </summary>
         </member>
-        <member name="F:GraphQLComplexFilter.MyEnum.Four">
+        <member name="F:GraphQLComplexFilter.Server.MyEnum.Four">
             <summary>
             Finally Number 4
             </summary>

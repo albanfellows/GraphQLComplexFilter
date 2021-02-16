@@ -1,4 +1,5 @@
-﻿using GreenDonut;
+﻿using GraphQLComplexFilter.Interfaces;
+using GreenDonut;
 using HotChocolate.DataLoader;
 using Microsoft.EntityFrameworkCore;
 using System;

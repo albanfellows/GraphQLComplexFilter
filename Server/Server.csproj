@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>GraphQLComplexFilter.Server</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,6 +23,11 @@
 
   <ItemGroup>
     <Folder Include="Filtering\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Module1\Module1.csproj" />
+    <ProjectReference Include="..\Module2\Module2.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using GraphQLComplexFilter.Module1;
+﻿using GraphQLComplexFilter.Interfaces;
 using GreenDonut;
 using HotChocolate.Resolvers;
 using HotChocolate.Types;

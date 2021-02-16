@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraphQLComplexFilter.Module2
+namespace GraphQLComplexFilter.Interfaces
 {
     public interface ISecondInterface
     {

@@ -1,4 +1,5 @@
-﻿using HotChocolate.Data;
+﻿using GraphQLComplexFilter.Interfaces;
+using HotChocolate.Data;
 using HotChocolate.Data.Filters;
 using HotChocolate.Data.Filters.Expressions;
 using System;

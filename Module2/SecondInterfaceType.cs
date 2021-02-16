@@ -1,4 +1,5 @@
-﻿using HotChocolate.Types;
+﻿using GraphQLComplexFilter.Interfaces;
+using HotChocolate.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;

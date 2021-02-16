@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraphQLComplexFilter
+namespace GraphQLComplexFilter.Server
 {
     [ExtendObjectType("__EnumValue")]
     public class EnumTypeExtension
