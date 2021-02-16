@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GraphQLComplexFilter</name>
+    </assembly>
+    <members>
+        <member name="F:GraphQLComplexFilter.MyEnum.One">
+            <summary>
+            This is One
+            </summary>
+        </member>
+        <member name="F:GraphQLComplexFilter.MyEnum.Two">
+            <summary>
+            This is two
+            </summary>
+        </member>
+        <member name="F:GraphQLComplexFilter.MyEnum.Three">
+            <summary>
+            And number three
+            </summary>
+        </member>
+        <member name="F:GraphQLComplexFilter.MyEnum.Four">
+            <summary>
+            Finally Number 4
+            </summary>
+        </member>
+    </members>
+</doc>

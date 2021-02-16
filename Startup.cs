@@ -31,11 +31,31 @@ namespace GraphQLComplexFilter
                 .AddFiltering<FirstFilterConvention>()
                 .AddFiltering<SecondFilterConvention>()
                 .AddSorting()
+                //.OnBeforeRegisterDependencies((ctx, def, state)=>
+                //{
+                //    if (def is { })
+                //        Console.WriteLine($"OnBeforeRegisterDependencies {def.Name}");
+                //})
+                //.OnBeforeCompleteType((ctx, def, state) =>
+                //{
+                //    if (def is { })
+                //        Console.WriteLine($"BeforCompleteType {def.Name}");
+                //}, c=>true)
+                //.TryAddTypeInterceptor<TestTypeInterceptor>()
+                .BindRuntimeType<IFirstInterface, FirstInputType>()
+                .BindRuntimeType<ISecondInterface, SecondInputType>()
+                //.BindRuntimeType<IFirstInterface,FirstType>()
+                //.BindRuntimeType<ISecondInterface, SecondType>()
                 .AddType<FirstType>()
                 .AddType<SecondType>()
+                .AddType<MyEnum>()
                 .AddQueryType<Query>()
+                .AddMutationType<Mutation>()
                 .AddTypeExtension<FirstQuery>()
                 .AddTypeExtension<SecondQuery>()
+                .AddTypeExtension<FirstMutation>()
+                .AddTypeExtension<SecondMutation>()
+                .AddTypeExtension<EnumTypeExtension>()
                 .AddDataLoader<IDataLoader<int, IFirstInterface>, FirstDataLoader>()
                 .AddDataLoader<IDataLoader<int, ISecondInterface>, SecondDataLoader>();
         }

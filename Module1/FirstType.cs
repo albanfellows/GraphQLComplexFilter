@@ -13,6 +13,7 @@ namespace GraphQLComplexFilter.Module1
     {
         protected override void Configure(IObjectTypeDescriptor<FirstClass> descriptor)
         {
+            descriptor.Implements<InterfaceType<IFirstInterface>>();
             descriptor.Field(f => f.SecondId)
                 .IsProjected();
             descriptor.Field(f => f.Second)

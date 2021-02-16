@@ -4,11 +4,15 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Source\Samples\GraphQLComplexFilter\GraphQLComplexFilter.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="GreenDonut" Version="11.0.8" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.8" />
-    <PackageReference Include="HotChocolate.Data" Version="11.0.8" />
-    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.0.8" />
+    <PackageReference Include="GreenDonut" Version="11.1.0-preview.8" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.1.0-preview.8" />
+    <PackageReference Include="HotChocolate.Data" Version="11.1.0-preview.8" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.1.0-preview.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
