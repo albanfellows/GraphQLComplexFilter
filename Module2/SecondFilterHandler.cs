@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace GraphQLComplexFilter.Module2
 {
-    public class SecondFilterHandler : QueryableDefaultFieldHandler
+    internal class SecondFilterHandler : QueryableDefaultFieldHandler
     {
         private IRequestExecutorResolver executorResolver;
         private string idName;

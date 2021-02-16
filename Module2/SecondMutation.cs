@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace GraphQLComplexFilter.Module2
 {
     [ExtendObjectType("Mutation")]
-    public class SecondMutation
+    internal class SecondMutation
     {
         public async Task<SecondClass> CreateSecond([ScopedService]SecondDbContext dbContext, SecondClass input)
         {

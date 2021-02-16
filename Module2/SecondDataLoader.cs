@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GraphQLComplexFilter.Module2
 {
-    public class SecondDataLoader : BatchDataLoader<int, ISecondInterface>
+    internal class SecondDataLoader : BatchDataLoader<int, ISecondInterface>
     {
         private readonly IDbContextFactory<SecondDbContext> _dbContextFactory;
 

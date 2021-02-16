@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GraphQLComplexFilter.Module2
 {
-    public class SecondType : ObjectType<SecondClass>
+    internal class SecondType : ObjectType<SecondClass>
     {
         protected override void Configure(IObjectTypeDescriptor<SecondClass> descriptor)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GraphQLComplexFilter.Module2
 {
-    public class SecondInputType : InputObjectType<SecondClass>
+    internal class SecondInputType : InputObjectType<SecondClass>
     {
     }
 }

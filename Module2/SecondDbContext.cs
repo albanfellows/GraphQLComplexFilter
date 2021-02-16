@@ -13,7 +13,7 @@ namespace GraphQLComplexFilter.Module2
         {
         }
 
-        public DbSet<SecondClass> Seconds { get; set; }
+        internal DbSet<SecondClass> Seconds { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

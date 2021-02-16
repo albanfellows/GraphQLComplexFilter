@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GraphQLComplexFilter.Module1
 {
-    public class FirstFilterConvention : FilterConvention
+    internal class FirstFilterConvention : FilterConvention
     {
         protected override void Configure(IFilterConventionDescriptor descriptor)
         {

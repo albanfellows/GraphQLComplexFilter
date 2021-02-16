@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GraphQLComplexFilter.Module1
 {
-    public class FirstDataLoader : BatchDataLoader<int, IFirstInterface>
+    internal class FirstDataLoader : BatchDataLoader<int, IFirstInterface>
     {
         private readonly IDbContextFactory<FirstDbContext> _dbContextFactory;
 

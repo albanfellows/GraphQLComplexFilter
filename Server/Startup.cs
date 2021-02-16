@@ -27,10 +27,8 @@ namespace GraphQLComplexFilter.Server
             services.AddPooledDbContextFactory<FirstDbContext>(options => options.UseSqlite("Data Source=filtertest.db"));
             services.AddPooledDbContextFactory<SecondDbContext>(options => options.UseSqlite("Data Source=filtertest.db"));
 
-            services.AddGraphQLServer()
+            var builder = services.AddGraphQLServer()
                 .AddProjections()
-                .AddFiltering<FirstFilterConvention>()
-                .AddFiltering<SecondFilterConvention>()
                 .AddSorting()
                 //.OnBeforeRegisterDependencies((ctx, def, state)=>
                 //{
@@ -43,22 +41,12 @@ namespace GraphQLComplexFilter.Server
                 //        Console.WriteLine($"BeforCompleteType {def.Name}");
                 //}, c=>true)
                 //.TryAddTypeInterceptor<TestTypeInterceptor>()
-                .BindRuntimeType<IFirstInterface, FirstInputType>()
-                .BindRuntimeType<ISecondInterface, SecondInputType>()
-                //.BindRuntimeType<IFirstInterface,FirstType>()
-                //.BindRuntimeType<ISecondInterface, SecondType>()
-                .AddType<FirstType>()
-                .AddType<SecondType>()
                 .AddType<MyEnum>()
                 .AddQueryType<Query>()
                 .AddMutationType<Mutation>()
-                .AddTypeExtension<FirstQuery>()
-                .AddTypeExtension<SecondQuery>()
-                .AddTypeExtension<FirstMutation>()
-                .AddTypeExtension<SecondMutation>()
                 .AddTypeExtension<EnumTypeExtension>()
-                .AddDataLoader<IDataLoader<int, IFirstInterface>, FirstDataLoader>()
-                .AddDataLoader<IDataLoader<int, ISecondInterface>, SecondDataLoader>();
+                .AddFirstModule()
+                .AddSecondModule();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GraphQLComplexFilter.Module1
 {
     [ExtendObjectType("Query")]
-    public class FirstQuery
+    internal class FirstQuery
     {
         [UseDbContext(typeof(FirstDbContext))]
         [UsePaging(DefaultPageSize = 10, IncludeTotalCount = true), /*UseProjection,*/ UseFiltering, UseSorting]
